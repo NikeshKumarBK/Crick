@@ -18,7 +18,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Login"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,7 +45,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PlayerRequest" />
         <activity android:name=".CheckRequest" />
-        <activity android:name=".TeamRequest"></activity>
     </application>
 
 </manifest>

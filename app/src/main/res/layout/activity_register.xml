@@ -8,22 +8,59 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+
     tools:context="in.co.crickon.cachii.crickon.Register">
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="Player"
-        android:id="@+id/btnPlayerRegister"
-        android:layout_marginBottom="15dp"/>
+        android:orientation="vertical">
 
-    <Button
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/cricketplaye"
+            android:id="@+id/imageView2" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:text="Player"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:id="@+id/btnPlayerRegister"
+            android:layout_marginBottom="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/btnCaptainRegister"
-        android:text="Captain"
-        />
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/cricketplay"
+            android:id="@+id/imageView3" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:id="@+id/btnCaptainRegister"
+            android:text="Captain"
+            />
+
+    </LinearLayout>
+
 
 </LinearLayout>
