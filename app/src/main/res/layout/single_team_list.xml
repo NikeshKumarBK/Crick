@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@mipmap/ic_launcher"
-            android:id="@+id/img_1"
+            android:id="@+id/app"
             android:layout_marginLeft="20dp"
 
             />
@@ -26,26 +26,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
-                android:id="@+id/txt1"
+                android:id="@+id/visible"
                 android:visibility="gone"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25dp"
                 android:text="C  S  K"
-                android:id="@+id/txt_1"/>
+                android:id="@+id/csk"/>
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PINCODE:600112"
-                android:id="@+id/txt_2"/>
+                android:id="@+id/pin"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,14 +54,15 @@
                 android:textSize="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="55dp"
-                android:id="@+id/txt_3"/>
+                android:id="@+id/wn"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="won / lose"
                 android:layout_marginLeft="55dp"
                 android:textSize="15dp"
-                android:id="@+id/txt_4"
+                android:id="@+id/WN"
                 />
 
         </LinearLayout>
