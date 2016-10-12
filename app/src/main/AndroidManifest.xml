@@ -16,7 +16,9 @@
             android:name=".FirstScreen"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Login">
+        <activity
+            android:name=".Login"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,7 +44,8 @@
             android:label="@string/title_activity_player_dash"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PlayerRequest" />
-        <activity android:name=".CheckRequest"></activity>
+        <activity android:name=".CheckRequest" />
+        <activity android:name=".TeamRequest"></activity>
     </application>
 
 </manifest>

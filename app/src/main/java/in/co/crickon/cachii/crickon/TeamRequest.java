@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class CheckRequest extends ListActivity {
+public class TeamRequest extends ListActivity {
 
     // Progress Dialog
     private ProgressDialog pDialog;
@@ -81,7 +80,7 @@ public class CheckRequest extends ListActivity {
 
         teamid=repo.getTeamid();
 
-        new LoadAllPlayerRequest().execute();
+        new CheckRequest.LoadAllPlayerRequest().execute();
         // Get listview
         ListView lv = getListView();
 
@@ -115,39 +114,11 @@ public class CheckRequest extends ListActivity {
 
         vwParentRow.refreshDrawableState();
 
-        new RequestResponse().execute();
+        new CheckRequest.RequestResponse().execute();
 
         Toast.makeText(CheckRequest.this,"Request updated",Toast.LENGTH_SHORT).show();
     }
 
-    public void btnReject(View v)
-    {
-
-        //get the row the clicked button is in
-        LinearLayout vwParentRow = (LinearLayout)v.getParent();
-
-        TextView childplayerid = (TextView)vwParentRow.getChildAt(0);
-        //TextView childplayername= (TextView)vwParentRow.getChildAt(1);
-        //TextView captainId = (TextView)vwParentRow.getChildAt(2);
-        //Button btnChild = (Button)vwParentRow.getChildAt(3);
-        //btnChild.setText(child.getText());
-
-        playerId=childplayerid.getText().toString();
-
-        status=""+2;
-
-        vwParentRow.refreshDrawableState();
-
-        new RequestResponse().execute();
-        //btnChild.setText("Player Rejected");
-        //btnChild.setEnabled(false);
-
-        Intent intent=new Intent(CheckRequest.this,CheckRequest.class);
-        intent.putExtra(TAG_CAPTAINID, captainId);
-
-        startActivity(intent);
-        finish();
-    }
 
     class RequestResponse extends AsyncTask<String, String, String> {
 
@@ -218,7 +189,7 @@ public class CheckRequest extends ListActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(CheckRequest.this);
+            pDialog = new ProgressDialog(TeamRequest.this);
             pDialog.setMessage("Loading request. Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
@@ -254,20 +225,20 @@ public class CheckRequest extends ListActivity {
                         JSONObject c = players.getJSONObject(i);
 
                         // Storing each json item in variable
-                        String playerId = c.getString(TAG_PLAYERID);
-                        String playerName = c.getString(TAG_PLAYERNAME);
+                        String TeamId = c.getString(TAG_TEAMID);
+                        String TeamName = c.getString(TAG_TEAMNAME);
 
-                        String bat = c.getString(TAG_BATSMAN);
-                        String bowl = c.getString(TAG_BOWLER);
-                        String wk = c.getString(TAG_WK);
+                        String TeamPincode = c.getString(TAG_PINCODE);
+                        String win= c.getString(TAG_WIN);
+                        String lose = c.getString(TAG_LOSE);
 
                         HashMap<String, String> map = new HashMap<String, String>();
 
-                        map.put(TAG_PLAYERID, playerId);
-                        map.put(TAG_PLAYERNAME, playerName);
-                        map.put(TAG_BATSMAN, bat);
-                        map.put(TAG_BOWLER, bowl);
-                        map.put(TAG_WK, wk);
+                        map.put(TAG_TEAMID,TeamId);
+                        map.put(TAG_TEAMNAME, TeamName);
+                        map.put(TAG_PINCODE, TeamPincode);
+                        map.put(TAG_WIN, win);
+                        map.put(TAG_LOSE,lose);
                         //map.put(TAG_CAPTAINID, captainid);
 
                         // adding HashList to ArrayList
