@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="in.co.crickon.cachii.crickon.PlayerRegister"
     tools:showIn="@layout/activity_player_register">
@@ -21,7 +24,7 @@
                 android:id="@+id/register_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
+
                 android:hint="Name"
                 android:inputType="text"/>
 
@@ -36,7 +39,7 @@
                 android:id="@+id/register_age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
+
                 android:hint="Age"
                 android:inputType="number"/>
 
@@ -130,6 +133,17 @@
 
         </LinearLayout>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_menu_save"
+            android:layout_gravity="bottom|end"
+            />
+
 
     </LinearLayout>
+
+
 </android.support.v4.widget.NestedScrollView>
