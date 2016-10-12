@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_margin="8dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/teamid"
+            android:typeface="serif"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:paddingTop="6dip"
+            android:paddingLeft="6dip"
+            android:textSize="20sp"
+            android:text="1"/>
+
+        <TextView
+            android:id="@+id/teamname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dip"
+            android:paddingLeft="6dip"
+            android:textSize="20sp"
+            android:text="Team Name"
+            android:typeface="serif"
+            />
+
+        <TextView
+            android:id="@+id/captainId"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dip"
+            android:paddingLeft="6dip"
+            android:textSize="20sp"
+            android:text="Captain Id"
+            android:typeface="serif"
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dip"
+            android:paddingTop="6dip"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:typeface="serif"
+                android:text="Win"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtWin"
+                android:textSize="20sp"
+                android:typeface="serif"
+                android:gravity="center"
+                android:text="0"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:typeface="serif"
+                android:text="Loss"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtLoss"
+                android:textSize="20sp"
+                android:typeface="serif"
+                android:gravity="center"
+                android:text="0"/>
+
+        </LinearLayout>
+
+
+
+
+
+        <!-- Name Label -->
+
+
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send Request"
+            android:onClick="btnSendRequest"
+            android:textAllCaps="false"
+
+            />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
