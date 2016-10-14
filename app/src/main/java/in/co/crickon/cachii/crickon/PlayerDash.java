@@ -44,14 +44,14 @@ public class PlayerDash extends AppCompatActivity
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -101,18 +101,20 @@ public class PlayerDash extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_send_request) {
+
+            SQLiteHandler repo=new SQLiteHandler(PlayerDash.this);
+            String pincode=repo.getPincode();
+            Intent intent=new Intent(PlayerDash.this,PlayerRequest.class);
+            intent.putExtra(TAG_PINCODE, pincode);
+            startActivity(intent);
+            finish();
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        }  else if (id == R.id.nav_my_profile) {
+            
+            Intent intent=new Intent(PlayerDash.this,MyProfile.class);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_sign_out) {
 
             SessionManager session = new SessionManager(PlayerDash.this);

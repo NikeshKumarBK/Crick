@@ -8,7 +8,7 @@
     <application
         android:name=".AppController"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/crickon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -32,6 +32,10 @@
             android:label="@string/title_activity_team_register"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".TeamRequest"
+            android:label="Team Request"
+            android:theme="@style/AppTheme.Login" />
+        <activity
             android:name=".PlayerRegister"
             android:label="@string/title_activity_player_register"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -43,8 +47,11 @@
             android:name=".PlayerDash"
             android:label="@string/title_activity_player_dash"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PlayerRequest" />
+        <activity
+            android:name=".PlayerRequest"
+            android:theme="@style/AppTheme.Login" />
         <activity android:name=".CheckRequest" />
+        <activity android:name=".MyProfile"></activity>
     </application>
 
 </manifest>

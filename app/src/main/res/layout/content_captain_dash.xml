@@ -18,6 +18,33 @@
         android:layout_height="wrap_content"
         android:text="Check Player request"
         android:textAllCaps="false"
+        android:background="@color/primary"
+        android:textColor="@color/white"
+        android:layout_marginBottom="10dp"
         android:id="@+id/btnCheckRequest"
         />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Match request"
+        android:textAllCaps="false"
+        android:background="@color/primary"
+        android:textColor="@color/white"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/btnSendMatchRequest"
+        />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Check Match request"
+        android:textAllCaps="false"
+        android:background="@color/primary"
+        android:textColor="@color/white"
+        android:id="@+id/btnCheckMatchRequest"
+        />
+
+
 </LinearLayout>

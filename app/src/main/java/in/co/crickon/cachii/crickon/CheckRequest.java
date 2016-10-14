@@ -149,6 +149,18 @@ public class CheckRequest extends ListActivity {
         finish();
     }
 
+    public void btnProfile(View v)
+    {
+
+
+        Intent intent=new Intent(CheckRequest.this,MyProfile.class);
+        intent.putExtra(TAG_CAPTAINID, captainId);
+
+        startActivity(intent);
+        //finish();
+    }
+
+
     class RequestResponse extends AsyncTask<String, String, String> {
 
         /**

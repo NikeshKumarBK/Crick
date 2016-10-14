@@ -20,7 +20,8 @@ public class CaptainDash extends AppCompatActivity
 
 
     private static final String TAG_CAPTAINID = "CaptainId";
-    Button btnCheckReq;
+    private static final String TAG_PINCODE = "Pincode";
+    Button btnCheckReq,btnSendMatchReq,btnCheckMatchReq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,8 @@ public class CaptainDash extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         btnCheckReq=(Button)findViewById(R.id.btnCheckRequest);
+        btnSendMatchReq=(Button)findViewById(R.id.btnSendMatchRequest);
+        btnCheckMatchReq=(Button)findViewById(R.id.btnCheckMatchRequest);
 
         btnCheckReq.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,14 +46,38 @@ public class CaptainDash extends AppCompatActivity
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        btnSendMatchReq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteHandler repo=new SQLiteHandler(CaptainDash.this);
+                String pincode=repo.getPincode();
+                Intent intent=new Intent(CaptainDash.this,TeamRequest.class);
+                intent.putExtra(TAG_PINCODE, pincode);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnCheckMatchReq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteHandler repo=new SQLiteHandler(CaptainDash.this);
+                String captainId=repo.getPlayerID();
+                Intent intent=new Intent(CaptainDash.this,CheckRequest.class);
+                intent.putExtra(TAG_CAPTAINID, captainId);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -100,18 +127,23 @@ public class CaptainDash extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_player_request) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            SQLiteHandler repo=new SQLiteHandler(CaptainDash.this);
+            String captainId=repo.getPlayerID();
+            Intent intent=new Intent(CaptainDash.this,CheckRequest.class);
+            intent.putExtra(TAG_CAPTAINID, captainId);
+            startActivity(intent);
+            finish();
+        } else if (id == R.id.nav_match_request) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_send_match_request) {
+            SQLiteHandler repo=new SQLiteHandler(CaptainDash.this);
+            String pincode=repo.getPincode();
+            Intent intent=new Intent(CaptainDash.this,TeamRequest.class);
+            intent.putExtra(TAG_PINCODE, pincode);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_sign_out) {
 
             SessionManager session = new SessionManager(CaptainDash.this);

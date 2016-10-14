@@ -55,6 +55,7 @@ public class PlayerRequest extends ListActivity {
     private static final String TAG_TEAMID = "TeamId";
     private static final String TAG_TEAMNAME = "TeamName";
     private static final String TAG_CAPTAINID = "CaptainId";
+    private static final String TAG_CAPTAINNAME = "CaptainName";
     private static final String TAG_PLAYERID = "PlayerId";
     private static final String TAG_PINCODE = "Pincode";
     private static final String TAG_WIN = "Win";
@@ -123,6 +124,13 @@ public class PlayerRequest extends ListActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(PlayerRequest.this,PlayerDash.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void btnSendRequest(View v)
     {
 
@@ -130,13 +138,13 @@ public class PlayerRequest extends ListActivity {
         LinearLayout vwParentRow = (LinearLayout)v.getParent();
 
         TextView child = (TextView)vwParentRow.getChildAt(0);
-        TextView teamchild = (TextView)vwParentRow.getChildAt(1);
-        TextView captainId = (TextView)vwParentRow.getChildAt(2);
+        //TextView teamchild = (TextView)vwParentRow.getChildAt(1);
+        TextView captainId = (TextView)vwParentRow.getChildAt(1);
         //Button btnChild = (Button)vwParentRow.getChildAt(3);
         //btnChild.setText(child.getText());
 
         teamid=child.getText().toString();
-        teamname=teamchild.getText().toString();
+        //teamname=teamchild.getText().toString();
         teamCaptainId=captainId.getText().toString();
         vwParentRow.refreshDrawableState();
 
@@ -270,7 +278,7 @@ public class PlayerRequest extends ListActivity {
                         String teamid = c.getString(TAG_TEAMID);
                         String teamname = c.getString(TAG_TEAMNAME);
                         String captainid= c.getString(TAG_CAPTAINID);
-
+                        String captainname= c.getString(TAG_CAPTAINNAME);
                         String win = c.getString(TAG_WIN);
                         String loss= c.getString(TAG_LOSS);
 
@@ -282,6 +290,7 @@ public class PlayerRequest extends ListActivity {
                         map.put(TAG_TEAMID, teamid);
                         map.put(TAG_TEAMNAME, teamname);
                         map.put(TAG_CAPTAINID, captainid);
+                        map.put(TAG_CAPTAINNAME, captainname);
                         map.put(TAG_WIN,win);
                         map.put(TAG_LOSS,loss);
 
@@ -326,9 +335,9 @@ public class PlayerRequest extends ListActivity {
                                 new int[] { R.id.pid, R.id.allPlaceName, R.id.allLandMark,R.id.allProb,R.id.allAltRoute ,R.id.allSolved});*/
                         ListAdapter adapter1 = new SimpleAdapter(
                                 PlayerRequest.this, teamList,
-                                R.layout.single_row_team_request, new String[] { TAG_TEAMID,
-                                TAG_TEAMNAME,TAG_CAPTAINID,TAG_WIN,TAG_LOSS},
-                                new int[] { R.id.teamid, R.id.teamname, R.id.captainId,R.id.txtWin,R.id.txtLoss});
+                                R.layout.single_team_list, new String[] { TAG_TEAMID,
+                                TAG_TEAMNAME,TAG_CAPTAINID, TAG_CAPTAINNAME,TAG_WIN,TAG_LOSS},
+                                new int[] { R.id.txtteamId, R.id.txtteamName, R.id.txtCaptainId, R.id.txtCaptainName, R.id.txtWin,R.id.txtLoss});
                         // updating listview
                         setListAdapter(adapter1);
                         //setListAdapter(adapter);

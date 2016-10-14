@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -28,59 +30,80 @@ import java.util.List;
 
 public class TeamRequest extends ListActivity {
 
+    EditText edtPincode;
+    Button btnSearch;
+
     // Progress Dialog
-    private ProgressDialog pDialog;
+    private ProgressDialog pDialog,pDialog1;
 
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
 
-    ArrayList<HashMap<String, String>> playerRequest;
+    ArrayList<HashMap<String, String>> teamList;
 
     //ArrayList<HashMap<String, String>> WarningproductsList;
     // url to get all products list
-    private static String url_all_player_request = "http://crickon.esy.es/php_files/CheckRequest.php";
+    private static String url_all_teams = "http://crickon.esy.es/php_files/PlayerRequest.php";
 
-    // url to create new product
-    private static String url_update_player_request = "http://crickon.esy.es/php_files/UpdateRequest.php";
+    // url to get all products list
+    private static String url_send_request = "http://crickon.esy.es/php_files/SendRequest.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PHONENUMBER = "Phno";
-    private static final String TAG_PLAYERID = "PlayerId";
-    private static final String TAG_REQUEST = "request";
-    private static final String TAG_PLAYERNAME = "PlayerName";
-    private static final String TAG_CAPTAINID = "CaptainId";
+    private static final String TAG_ERROR = "error";
+    private static final String TAG_TEAM = "team";
     private static final String TAG_TEAMID = "TeamId";
-    private static final String TAG_STATUS= "Status";
-
-    private static final String TAG_BATSMAN= "Batsman";
-    private static final String TAG_BOWLER= "Bowler";
-    private static final String TAG_WK = "WK";
+    private static final String TAG_TEAMNAME = "TeamName";
+    private static final String TAG_CAPTAINID = "CaptainId";
+    private static final String TAG_CAPTAINNAME = "CaptainName";
+    private static final String TAG_PLAYERID = "PlayerId";
+    private static final String TAG_PINCODE = "Pincode";
+    private static final String TAG_WIN = "Win";
+    private static final String TAG_LOSS = "Loss";
 
     // products JSONArray
-    JSONArray players = null;
+    JSONArray teams = null;
 
-    SQLiteHandler repo=new SQLiteHandler(CheckRequest.this);
-    String captainId, playerId,teamid, status;
-
+    String pincode,teamid,teamname,teamCaptainId,playerId;
     int flag=0;
+
+    SQLiteHandler repo=new SQLiteHandler(TeamRequest.this);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_request);
-
-        // Hashmap for ListView
-        playerRequest = new ArrayList<HashMap<String, String>>();
+        setContentView(R.layout.activity_team_request);
 
         Intent intent=getIntent();
-        captainId=intent.getStringExtra(TAG_CAPTAINID);
+        pincode=intent.getStringExtra(TAG_PINCODE);
+
+        playerId=repo.getPlayerID();
+
+        edtPincode=(EditText)findViewById(R.id.edtPincode);
+        btnSearch=(Button)findViewById(R.id.btnTeamSearch);
+
+
+        edtPincode.setText(pincode);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(TeamRequest.this,TeamRequest.class);
+                pincode=edtPincode.getText().toString().trim();
+                intent.putExtra(TAG_PINCODE,pincode);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        // Hashmap for ListView
+        teamList = new ArrayList<HashMap<String, String>>();
         //WarningproductsList = new ArrayList<HashMap<String, String>>();
 
-        teamid=repo.getTeamid();
+        new LoadAllTeams().execute();
 
-        new CheckRequest.LoadAllPlayerRequest().execute();
+
         // Get listview
         ListView lv = getListView();
 
@@ -91,38 +114,54 @@ public class TeamRequest extends ListActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // getting values from selected ListItem
-                String pid = ((TextView) view.findViewById(R.id.playerId)).getText()
+                String pid = ((TextView) view.findViewById(R.id.teamid)).getText()
                         .toString();
             }
         });
+
+
+
     }
 
 
-    public void btnConfirm(View v)
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(TeamRequest.this,CaptainDash.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void btnSendRequest(View v)
     {
+
         //get the row the clicked button is in
         LinearLayout vwParentRow = (LinearLayout)v.getParent();
 
-        TextView childplayerid = (TextView)vwParentRow.getChildAt(0);
-        //TextView childplayername= (TextView)vwParentRow.getChildAt(1);
+        TextView child = (TextView)vwParentRow.getChildAt(0);
+        TextView teamchild = (TextView)vwParentRow.getChildAt(1);
         //TextView captainId = (TextView)vwParentRow.getChildAt(2);
-//        Button btnChild = (Button)vwParentRow.getChildAt(2);
+        //Button btnChild = (Button)vwParentRow.getChildAt(3);
         //btnChild.setText(child.getText());
 
-        playerId=childplayerid.getText().toString();
-        status=""+1;
-
+        teamid=child.getText().toString();
+        teamname=teamchild.getText().toString();
+        //teamCaptainId=captainId.getText().toString();
         vwParentRow.refreshDrawableState();
 
-        new CheckRequest.RequestResponse().execute();
+        //new SendRequest().execute();
+        //btnChild.setText("Team Request sent");
+        //btnChild.setEnabled(false);
 
-        Toast.makeText(CheckRequest.this,"Request updated",Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(TeamRequest.this,TeamRequest.class);
+        intent.putExtra(TAG_PINCODE, pincode);
+
+        startActivity(intent);
+        finish();
+
+        //btnChild.setText("Solved");
     }
 
-
-
-
-    class RequestResponse extends AsyncTask<String, String, String> {
+    class SendRequest extends AsyncTask<String, String, String> {
 
         /**
          * Before starting background thread Show Progress Dialog
@@ -130,11 +169,11 @@ public class TeamRequest extends ListActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(CheckRequest.this);
-            pDialog.setMessage("Request response...");
-            pDialog.setIndeterminate(false);
+            pDialog1 = new ProgressDialog(TeamRequest.this);
+            pDialog1.setMessage("Sending Request...");
+            pDialog1.setIndeterminate(false);
             //pDialog.setCancelable(true);
-            //pDialog.show();
+            //pDialog1.show();
         }
 
         /**
@@ -142,31 +181,39 @@ public class TeamRequest extends ListActivity {
          * */
         protected String doInBackground(String... args) {
 
+
+
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair(TAG_PLAYERID, playerId));
             params.add(new BasicNameValuePair(TAG_TEAMID, teamid));
-            params.add(new BasicNameValuePair(TAG_STATUS, status));
-            Log.e("Check",playerId+" "+teamid+" "+status);
+            params.add(new BasicNameValuePair(TAG_PLAYERID, playerId));
+            params.add(new BasicNameValuePair(TAG_CAPTAINID, teamCaptainId));
+
 
             // sending modified data through http request
             // Notice that update product url accepts POST method
-            JSONObject json = jParser.makeHttpRequest(url_update_player_request,
+            JSONObject json = jParser.makeHttpRequest(url_send_request,
                     "POST", params);
 
             // check json success tag
             try {
-                int success = json.getInt(TAG_SUCCESS);
+                boolean success = json.getBoolean(TAG_ERROR);
+                Log.e("Check",""+success);
 
-                if (success == 1) {
-
+                if (!success) {
+                    // successfully updated
+                    Intent i = getIntent();
+                    // send result code 100 to notify about product update
+                    setResult(100, i);
+                    finish();
                 } else {
                     // failed to update product
-                    //Toast.makeText(CheckRequest.this,"Response already sent",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TeamRequest.this,"Request already sent",Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             return null;
         }
 
@@ -175,15 +222,16 @@ public class TeamRequest extends ListActivity {
          * **/
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once product uupdated
-            pDialog.dismiss();
+            //pDialog1.dismiss();
 
         }
     }
 
+
     /**
      * Background Async Task to Load all product by making HTTP Request
      * */
-    class LoadAllPlayerRequest extends AsyncTask<String, String, String> {
+    class LoadAllTeams extends AsyncTask<String, String, String> {
 
         /**
          * Before starting background thread Show Progress Dialog
@@ -192,7 +240,7 @@ public class TeamRequest extends ListActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(TeamRequest.this);
-            pDialog.setMessage("Loading request. Please wait...");
+            pDialog.setMessage("Loading teams. Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -204,11 +252,11 @@ public class TeamRequest extends ListActivity {
         protected String doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair(TAG_CAPTAINID, captainId));
+            params.add(new BasicNameValuePair(TAG_PINCODE, pincode));
             //params.add(new BasicNameValuePair(TAG_STATUS, status));
 
             // getting JSON string from URL
-            JSONObject json = jParser.makeHttpRequest(url_all_player_request, "GET", params);
+            JSONObject json = jParser.makeHttpRequest(url_all_teams, "GET", params);
 
             // Check your log cat for JSON reponse
             Log.d("All Products: ", json.toString());
@@ -220,32 +268,33 @@ public class TeamRequest extends ListActivity {
                 if (success == 1) {
                     // products found
                     // Getting Array of Products
-                    players = json.getJSONArray(TAG_REQUEST);
+                    teams = json.getJSONArray(TAG_TEAM);
 
                     // looping through All Products
-                    for (int i = 0; i < players.length(); i++) {
-                        JSONObject c = players.getJSONObject(i);
+                    for (int i = 0; i < teams.length(); i++) {
+                        JSONObject c = teams.getJSONObject(i);
 
                         // Storing each json item in variable
-                        String TeamId = c.getString(TAG_TEAMID);
-                        String TeamName = c.getString(TAG_TEAMNAME);
-
-                        String TeamPincode = c.getString(TAG_PINCODE);
-                        String win= c.getString(TAG_WIN);
-                        String lose = c.getString(TAG_LOSE);
+                        String teamid = c.getString(TAG_TEAMID);
+                        String teamname = c.getString(TAG_TEAMNAME);
+                        String captainid= c.getString(TAG_CAPTAINID);
+                        String captainname= c.getString(TAG_CAPTAINNAME);
+                        String win = c.getString(TAG_WIN);
+                        String loss= c.getString(TAG_LOSS);
 
                         HashMap<String, String> map = new HashMap<String, String>();
 
-                        map.put(TAG_TEAMID,TeamId);
-                        map.put(TAG_TEAMNAME, TeamName);
-                        map.put(TAG_PINCODE, TeamPincode);
-                        map.put(TAG_WIN, win);
-                        map.put(TAG_LOSE,lose);
-                        //map.put(TAG_CAPTAINID, captainid);
+                        map.put(TAG_TEAMID, teamid);
+                        map.put(TAG_TEAMNAME, teamname);
+                        map.put(TAG_CAPTAINID, captainid);
+                        map.put(TAG_CAPTAINNAME, captainname);
+                        map.put(TAG_WIN,win);
+                        map.put(TAG_LOSS,loss);
 
                         // adding HashList to ArrayList
-                        playerRequest.add(map);
-                        Log.e("Check", "Added to requestlist");
+                        teamList.add(map);
+                        Log.e("Check", "Added to teamlist");
+
                     }
                 } else {
                     // no products found
@@ -255,6 +304,7 @@ public class TeamRequest extends ListActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             return null;
         }
 
@@ -263,11 +313,12 @@ public class TeamRequest extends ListActivity {
          * **/
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
+            pDialog.dismiss();
             if(flag==1)
             {
-                Toast.makeText(CheckRequest.this,"No Player request!!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(TeamRequest.this,"No Teams found in this Area!!",Toast.LENGTH_SHORT).show();
             }
-            pDialog.dismiss();
+
 
 
             // updating UI from Background Thread
@@ -280,22 +331,17 @@ public class TeamRequest extends ListActivity {
                                 TAG_SITE_NAME,TAG_ISSUE,TAG_DATE,TAG_FIELD,TAG_STATUS},
                                 new int[] { R.id.pid, R.id.allPlaceName, R.id.allLandMark,R.id.allProb,R.id.allAltRoute ,R.id.allSolved});*/
                     ListAdapter adapter1 = new SimpleAdapter(
-                            CheckRequest.this, playerRequest,
-                            R.layout.single_row_player_request_captain, new String[] { TAG_PLAYERID,
-                            TAG_PLAYERNAME, TAG_BATSMAN, TAG_BOWLER, TAG_WK},
-                            new int[] { R.id.playerId, R.id.playerName, R.id.txtBat, R.id.txtBowl, R.id.txtWk});
+                            TeamRequest.this, teamList,
+                            R.layout.single_team_list, new String[] { TAG_TEAMID,
+                            TAG_TEAMNAME,TAG_CAPTAINID, TAG_CAPTAINNAME,TAG_WIN,TAG_LOSS},
+                            new int[] { R.id.txtteamId, R.id.txtteamName, R.id.txtCaptainId, R.id.txtCaptainName, R.id.txtWin,R.id.txtLoss});
                     // updating listview
                     setListAdapter(adapter1);
                     //setListAdapter(adapter);
                 }
             });
-        }
-    }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent=new Intent(CheckRequest.this,CaptainDash.class);
-        startActivity(intent);
-        finish();
+
+        }
     }
 }

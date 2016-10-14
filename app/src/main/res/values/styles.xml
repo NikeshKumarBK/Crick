@@ -14,12 +14,22 @@
         <item name="colorAccent">#F57C00</item>
     </style>
 
+    <style name="AppTheme.ActionBar">
+        <item name="windowActionBar">true</item>
+
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.Login" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorAccent">#F57C00</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
     </style>
 
 </resources>
