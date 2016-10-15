@@ -78,11 +78,7 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-
-
-
         }
-
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,7 +189,6 @@ public class Login extends AppCompatActivity {
                 hideDialog();
             }
         }) {
-
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
@@ -203,7 +198,6 @@ public class Login extends AppCompatActivity {
 
                 return params;
             }
-
         };
 
         // Adding request to request queue

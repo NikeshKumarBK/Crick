@@ -9,135 +9,116 @@
     android:layout_marginBottom="@dimen/activity_vertical_margin"
     android:layout_margin="8dp">
 
+    <TextView
+        android:id="@+id/playerId"
+        android:typeface="serif"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:paddingTop="6dip"
+        android:background="@color/primary_light"
+        android:paddingLeft="6dip"
+        android:textSize="20sp"
+        android:textColor="@color/primary_text"
+        android:text="1"/>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-
         android:layout_height="match_parent">
-
-
-        <TextView
-            android:id="@+id/playerId"
-            android:typeface="serif"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="6dip"
-            android:background="@color/primary_light"
-            android:paddingLeft="6dip"
-            android:textSize="20sp"
-            android:textColor="@color/primary_text"
-            android:text="1"/>
-
-        <TextView
-            android:id="@+id/playerName"
-            android:layout_width="match_parent"
-            android:background="@color/primary_light"
-            android:layout_height="wrap_content"
-            android:paddingTop="6dip"
-            android:paddingLeft="6dip"
-            android:textSize="20sp"
-            android:text="Player name"
-            android:textColor="@color/primary_text"
-            android:typeface="serif"
-            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="6dip"
             android:background="@color/primary_light"
-            android:paddingLeft="6dip"
             android:orientation="horizontal">
 
-            <TextView
-                android:typeface="serif"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
-                android:textSize="20sp"
-                android:text="Bat"
-                android:id="@+id/textView2" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher"
+                />
 
-            <TextView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/playerName"
+                    android:layout_width="match_parent"
 
-                android:typeface="serif"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:id="@+id/txtBat"
-                android:text="Yes"/>
-            <TextView
-                android:typeface="serif"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
-                android:textSize="20sp"
-                android:text="Bowl"/>
-            <TextView
-                android:typeface="serif"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:id="@+id/txtBowl"
-                android:text="Yes"/>
-            <TextView
-                android:typeface="serif"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
-                android:textSize="20sp"
-                android:text="WK"/>
+                    android:layout_height="wrap_content"
+                    android:paddingTop="6dip"
+                    android:paddingLeft="6dip"
+                    android:textSize="20sp"
+                    android:text="Player name"
+                    android:textColor="@color/primary_text"
+                    android:typeface="serif"
+                    />
 
+                <TextView
+                    android:id="@+id/pincode"
+                    android:layout_width="match_parent"
 
-            <TextView
-                android:typeface="serif"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="6dip"
+                    android:paddingLeft="6dip"
+                    android:textSize="20sp"
+                    android:text="Pincode"
+                    android:textColor="@color/secondary_text"
+                    android:typeface="serif"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:id="@+id/txtWk"
-                android:textSize="20sp"
-                android:text="Yes"/>
+                android:text="Confirm"
+                android:background="@color/primary_green"
+                android:textColor="@color/white"
+                android:onClick="btnConfirm"
+                android:textAllCaps="false"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Reject"
+                android:background="@color/primary_red"
+                android:textColor="@color/white"
+                android:onClick="btnReject"
+                android:textAllCaps="false"
+                />
 
 
         </LinearLayout>
 
 
+
+
+
+
+
+
         <!-- Name Label -->
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Confirm"
-            android:background="@color/primary"
-            android:textColor="@color/white"
-            android:onClick="btnConfirm"
-            android:textAllCaps="false"
-            />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Reject"
-            android:background="@color/primary"
-            android:textColor="@color/white"
-            android:layout_marginTop="5dp"
-            android:onClick="btnReject"
-            android:textAllCaps="false"
-            />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Profile"
-            android:background="@color/primary"
+            android:background="@color/cyan"
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
             android:onClick="btnProfile"
