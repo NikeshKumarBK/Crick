@@ -51,11 +51,7 @@
             android:name=".PlayerRequest"
             android:theme="@style/AppTheme.Login" />
         <activity android:name=".CheckRequest" />
-        <activity android:name=".MyProfile" />
-        <activity
-            android:name=".AboutUs"
-            android:label="@string/title_activity_about_us"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".MyProfile"></activity>
     </application>
 
 </manifest>

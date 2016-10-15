@@ -4,10 +4,12 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -319,8 +321,8 @@ public class CheckRequest extends ListActivity {
                     ListAdapter adapter1 = new SimpleAdapter(
                             CheckRequest.this, playerRequest,
                             R.layout.single_row_player_request_captain, new String[] { TAG_PLAYERID,
-                            TAG_PLAYERNAME},
-                            new int[] { R.id.playerId, R.id.playerName});
+                            TAG_PLAYERNAME, TAG_BATSMAN, TAG_BOWLER, TAG_WK},
+                            new int[] { R.id.playerId, R.id.playerName, R.id.txtBat, R.id.txtBowl, R.id.txtWk});
                     // updating listview
                     setListAdapter(adapter1);
                     //setListAdapter(adapter);
