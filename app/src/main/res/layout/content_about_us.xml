@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="in.co.crickon.cachii.crickon.AboutUs"
+    tools:showIn="@layout/activity_about_us">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_about"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="in.co.crickon.cachii.crickon.About"
+        android:orientation="vertical">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ab_1"
+            android:textSize="16sp"
+            android:text="CRICKON is an app for cricket teams and players to connect to different teams. Register with crickon and create your own team; add your players to the team's profile. Play match with different teams and update the team score and detailed score card in the application to get your team in the leaderboard. Improve the team's perfomance using the statistics also have fun to see your team and players at the top rankings and many more."
+            android:paddingBottom="15dp"
+            />
+
+        <Button
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="CONTACT US"
+            android:textColor="#FFF"
+            android:background="@color/primary"
+            />
+
+
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
