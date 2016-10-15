@@ -321,8 +321,8 @@ public class CheckRequest extends ListActivity {
                     ListAdapter adapter1 = new SimpleAdapter(
                             CheckRequest.this, playerRequest,
                             R.layout.single_row_player_request_captain, new String[] { TAG_PLAYERID,
-                            TAG_PLAYERNAME, TAG_BATSMAN, TAG_BOWLER, TAG_WK},
-                            new int[] { R.id.playerId, R.id.playerName, R.id.txtBat, R.id.txtBowl, R.id.txtWk});
+                            TAG_WK},
+                            new int[] { R.id.playerId, R.id.playerName});
                     // updating listview
                     setListAdapter(adapter1);
                     //setListAdapter(adapter);
