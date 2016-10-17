@@ -51,7 +51,8 @@
             android:name=".PlayerRequest"
             android:theme="@style/AppTheme.Login" />
         <activity android:name=".CheckRequest" />
-        <activity android:name=".MyProfile"></activity>
+        <activity android:name=".MyProfile" />
+        <activity android:name=".ContactUs"></activity>
     </application>
 
 </manifest>

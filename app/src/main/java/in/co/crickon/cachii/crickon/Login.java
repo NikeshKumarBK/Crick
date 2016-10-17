@@ -150,6 +150,7 @@ public class Login extends AppCompatActivity {
                         //String desig = user.getString("desig");
                         String Role = user.getString("Role");
 
+
                         // Inserting row in users table
                         db.addPlayer(PlayerId, Name, Phno, Teamid, pincode, Role);
 

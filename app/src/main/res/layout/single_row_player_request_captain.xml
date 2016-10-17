@@ -46,7 +46,6 @@
                 <TextView
                     android:id="@+id/playerName"
                     android:layout_width="match_parent"
-
                     android:layout_height="wrap_content"
                     android:paddingTop="6dip"
                     android:paddingLeft="6dip"
@@ -59,7 +58,6 @@
                 <TextView
                     android:id="@+id/pincode"
                     android:layout_width="match_parent"
-
                     android:layout_height="wrap_content"
                     android:paddingTop="6dip"
                     android:paddingLeft="6dip"
@@ -100,19 +98,9 @@
                 android:textAllCaps="false"
                 />
 
-
         </LinearLayout>
 
-
-
-
-
-
-
-
         <!-- Name Label -->
-
-
 
         <Button
             android:layout_width="match_parent"

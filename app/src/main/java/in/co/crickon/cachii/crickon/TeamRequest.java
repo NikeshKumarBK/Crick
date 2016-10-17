@@ -340,8 +340,6 @@ public class TeamRequest extends ListActivity {
                     //setListAdapter(adapter);
                 }
             });
-
-
         }
     }
 }

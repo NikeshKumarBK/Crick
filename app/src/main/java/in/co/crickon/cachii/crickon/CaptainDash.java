@@ -135,6 +135,11 @@ public class CaptainDash extends AppCompatActivity
             intent.putExtra(TAG_CAPTAINID, captainId);
             startActivity(intent);
             finish();
+        } else if (id == R.id.nav_my_profile) {
+
+            Intent intent=new Intent(CaptainDash.this,MyProfile.class);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_match_request) {
 
         } else if (id == R.id.nav_send_match_request) {

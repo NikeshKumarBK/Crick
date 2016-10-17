@@ -75,6 +75,7 @@ public class CheckRequest extends ListActivity {
         // Hashmap for ListView
         playerRequest = new ArrayList<HashMap<String, String>>();
 
+        Log.e("Test","declaration");
         Intent intent=getIntent();
         captainId=intent.getStringExtra(TAG_CAPTAINID);
         //WarningproductsList = new ArrayList<HashMap<String, String>>();
@@ -98,126 +99,6 @@ public class CheckRequest extends ListActivity {
         });
     }
 
-
-    public void btnConfirm(View v)
-    {
-        //get the row the clicked button is in
-        LinearLayout vwParentRow = (LinearLayout)v.getParent();
-
-        TextView childplayerid = (TextView)vwParentRow.getChildAt(0);
-        //TextView childplayername= (TextView)vwParentRow.getChildAt(1);
-        //TextView captainId = (TextView)vwParentRow.getChildAt(2);
-//        Button btnChild = (Button)vwParentRow.getChildAt(2);
-        //btnChild.setText(child.getText());
-
-        playerId=childplayerid.getText().toString();
-        status=""+1;
-
-        vwParentRow.refreshDrawableState();
-
-        new RequestResponse().execute();
-
-        Toast.makeText(CheckRequest.this,"Request updated",Toast.LENGTH_SHORT).show();
-    }
-
-    public void btnReject(View v)
-    {
-
-        //get the row the clicked button is in
-        LinearLayout vwParentRow = (LinearLayout)v.getParent();
-
-        TextView childplayerid = (TextView)vwParentRow.getChildAt(0);
-        //TextView childplayername= (TextView)vwParentRow.getChildAt(1);
-        //TextView captainId = (TextView)vwParentRow.getChildAt(2);
-        //Button btnChild = (Button)vwParentRow.getChildAt(3);
-        //btnChild.setText(child.getText());
-
-        playerId=childplayerid.getText().toString();
-
-        status=""+2;
-
-        vwParentRow.refreshDrawableState();
-
-        new RequestResponse().execute();
-        //btnChild.setText("Player Rejected");
-        //btnChild.setEnabled(false);
-
-        Intent intent=new Intent(CheckRequest.this,CheckRequest.class);
-        intent.putExtra(TAG_CAPTAINID, captainId);
-
-        startActivity(intent);
-        finish();
-    }
-
-    public void btnProfile(View v)
-    {
-
-
-        Intent intent=new Intent(CheckRequest.this,MyProfile.class);
-        intent.putExtra(TAG_CAPTAINID, captainId);
-
-        startActivity(intent);
-        //finish();
-    }
-
-
-    class RequestResponse extends AsyncTask<String, String, String> {
-
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(CheckRequest.this);
-            pDialog.setMessage("Request response...");
-            pDialog.setIndeterminate(false);
-            //pDialog.setCancelable(true);
-            //pDialog.show();
-        }
-
-        /**
-         * Saving product
-         * */
-        protected String doInBackground(String... args) {
-
-            // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair(TAG_PLAYERID, playerId));
-            params.add(new BasicNameValuePair(TAG_TEAMID, teamid));
-            params.add(new BasicNameValuePair(TAG_STATUS, status));
-            Log.e("Check",playerId+" "+teamid+" "+status);
-
-            // sending modified data through http request
-            // Notice that update product url accepts POST method
-            JSONObject json = jParser.makeHttpRequest(url_update_player_request,
-                    "POST", params);
-
-            // check json success tag
-            try {
-                int success = json.getInt(TAG_SUCCESS);
-
-                if (success == 1) {
-
-                } else {
-                    // failed to update product
-                    //Toast.makeText(CheckRequest.this,"Response already sent",Toast.LENGTH_SHORT).show();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        /**
-         * After completing background task Dismiss the progress dialog
-         * **/
-        protected void onPostExecute(String file_url) {
-            // dismiss the dialog once product uupdated
-            pDialog.dismiss();
-
-        }
-    }
 
     /**
      * Background Async Task to Load all product by making HTTP Request
@@ -321,8 +202,8 @@ public class CheckRequest extends ListActivity {
                     ListAdapter adapter1 = new SimpleAdapter(
                             CheckRequest.this, playerRequest,
                             R.layout.single_row_player_request_captain, new String[] { TAG_PLAYERID,
-                            TAG_PLAYERNAME, TAG_BATSMAN, TAG_BOWLER, TAG_WK},
-                            new int[] { R.id.playerId, R.id.playerName, R.id.txtBat, R.id.txtBowl, R.id.txtWk});
+                            TAG_PLAYERNAME},
+                            new int[] { R.id.playerId, R.id.playerName});
                     // updating listview
                     setListAdapter(adapter1);
                     //setListAdapter(adapter);
