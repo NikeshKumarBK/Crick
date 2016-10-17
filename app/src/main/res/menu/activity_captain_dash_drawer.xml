@@ -3,6 +3,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_my_profile"
+            android:title="My Profile" />
+
+        <item
             android:id="@+id/nav_player_request"
             android:title="Player request" />
         <item
