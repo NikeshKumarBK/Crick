@@ -41,7 +41,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nikesh Kumar"
+                    android:text="Player name"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:id="@+id/txtPlayerName"
@@ -51,7 +51,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="600 073"
+                    android:text="Pincode"
                     android:id="@+id/txtPincode"
                     android:textSize="20sp"
                     android:textColor="@color/white"
@@ -70,7 +70,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="18"
+                    android:text="Age"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="50sp"
@@ -130,7 +130,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Yes"
+                    android:text="---"
                     android:id="@+id/txtbatsman"
                     android:textColor="@color/white"/>
 
@@ -157,7 +157,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Yes"
+                    android:text="---"
                     android:id="@+id/txtbowler"
                     android:textColor="@color/white"/>
 
@@ -185,7 +185,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Yes"
+                    android:text="---"
                     android:id="@+id/txtwicketkeeper"
                     android:textColor="@color/white"/>
 
@@ -220,7 +220,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="8807260803"
+                android:text="Phone number"
                 android:id="@+id/txtPhonenumber"
                 android:textColor="@color/white"/>
 

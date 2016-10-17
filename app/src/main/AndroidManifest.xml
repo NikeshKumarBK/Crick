@@ -19,11 +19,7 @@
         <activity
             android:name=".Login"
             android:theme="@style/AppTheme.Login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Register" />
         <activity android:name=".PlayerRegister1" />
@@ -54,6 +50,21 @@
         <activity android:name=".MyProfile"></activity>
 
         <activity android:name=".AboutUs"/>
+
+        <activity android:name=".WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".SplashScreen"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
