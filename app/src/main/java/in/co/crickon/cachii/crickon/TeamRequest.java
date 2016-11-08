@@ -434,8 +434,6 @@ public class TeamRequest extends ListActivity implements NavigationView.OnNaviga
                     //setListAdapter(adapter);
                 }
             });
-
-
         }
     }
 }
