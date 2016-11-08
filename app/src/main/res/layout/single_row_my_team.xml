@@ -1,0 +1,39 @@
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:layout_margin="8dp">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Teamid"
+            android:paddingBottom="15dp"
+            android:id="@+id/three"
+            android:textSize="20dp"
+            android:visibility="gone"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Teamname"
+            android:id="@+id/two"
+            android:paddingBottom="15dp"
+            android:textSize="20dp"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Team Profile"
+            android:onClick="btnTeamProfile"
+            android:textColor="#000"
+            android:background="#ccc"/>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

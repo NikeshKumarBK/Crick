@@ -43,7 +43,7 @@ public class PlayerRegister extends AppCompatActivity {
 
     String name,age,phonenumber,pincode,password,message;
 
-    public static String URL_REGISTER="http://crickon.esy.es/php_files/RegisterPlayer.php";
+    public static String URL_REGISTER="http://crickon.co.in/php/RegisterPlayer.php";
 
     //server you type da
 

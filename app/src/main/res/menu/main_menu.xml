@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--
+        A color scheme menu item used for demonstrating the use of SwipeRefreshLayout's color
+        scheme functionality. This kind of menu item should not be incorporated into your app,
+        it just to demonstrate the use of color. Instead you should choose a color scheme based
+        off of your application's branding.
+    -->
+    <item
+        android:id="@+id/action_search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="always"
+        android:title="Search"/>
+
+</menu>

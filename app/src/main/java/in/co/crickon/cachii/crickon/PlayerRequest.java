@@ -43,10 +43,10 @@ public class PlayerRequest extends ListActivity {
 
     //ArrayList<HashMap<String, String>> WarningproductsList;
     // url to get all products list
-    private static String url_all_teams = "http://crickon.esy.es/php_files/PlayerRequest.php";
+    private static String url_all_teams = "http://crickon.co.in/php/PlayerRequest.php";
 
     // url to get all products list
-    private static String url_send_request = "http://crickon.esy.es/php_files/SendRequest.php";
+    private static String url_send_request = "http://crickon.co.in/php/SendRequest.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -202,13 +202,10 @@ public class PlayerRequest extends ListActivity {
 
                 if (!success) {
                     // successfully updated
-                    Intent i = getIntent();
-                    // send result code 100 to notify about product update
-                    setResult(100, i);
-                    finish();
-                } else {
+
+                    } else {
                     // failed to update product
-                    Toast.makeText(PlayerRequest.this,"Request already sent",Toast.LENGTH_SHORT).show();
+                    flag=1;
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -223,6 +220,17 @@ public class PlayerRequest extends ListActivity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once product uupdated
             //pDialog1.dismiss();
+            if(flag==1)
+            {
+                Toast.makeText(PlayerRequest.this,"Request already sent",Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(PlayerRequest.this,"Request sent",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(PlayerRequest.this,Login.class);
+                startActivity(intent);
+                finish();
+            }
 
         }
     }
@@ -322,8 +330,6 @@ public class PlayerRequest extends ListActivity {
                 Toast.makeText(PlayerRequest.this,"No Teams found in this Area!!",Toast.LENGTH_SHORT).show();
             }
 
-
-
                 // updating UI from Background Thread
                 runOnUiThread(new Runnable() {
                     public void run() {
@@ -343,8 +349,6 @@ public class PlayerRequest extends ListActivity {
                         //setListAdapter(adapter);
                     }
                 });
-
-
         }
     }
 }

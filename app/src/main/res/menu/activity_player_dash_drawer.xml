@@ -11,6 +11,24 @@
             android:id="@+id/nav_send_request"
             android:title="Send request" />
 
+        <item
+            android:id="@+id/nav_upcoming_matches"
+            android:title="Upcoming Matches" />
+
+        <item
+            android:id="@+id/nav_leaderboard"
+            android:title="Leaderboard" />
+
+
+        <item
+            android:id="@+id/nav_about_us"
+            android:title="About Us" />
+
+        <item
+            android:id="@+id/nav_feedback"
+            android:title="Feedback" />
+
+
     </group>
 
     <item

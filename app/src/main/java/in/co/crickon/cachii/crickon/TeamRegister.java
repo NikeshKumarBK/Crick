@@ -38,7 +38,7 @@ public class TeamRegister extends AppCompatActivity {
 
     String selectedType,selectedNature,teamname, area, pincode, desc,capPhNo, capId;
 
-    public static String URL_REGISTER="http://crickon.esy.es/php_files/RegisterTeam.php";
+    public static String URL_REGISTER="http://crickon.co.in/php/RegisterTeam.php";
 
     //Registration declaration
     private static final String TAG = PlayerRegister.class.getSimpleName();

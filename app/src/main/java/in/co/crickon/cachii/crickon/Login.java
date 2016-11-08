@@ -1,10 +1,14 @@
 package in.co.crickon.cachii.crickon;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +24,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import android.view.View.OnClickListener;
 
 public class Login extends AppCompatActivity {
 
@@ -34,7 +39,7 @@ public class Login extends AppCompatActivity {
     private SQLiteHandler db;
 
     // Server user login url
-    public static String URL_LOGIN = "http://crickon.esy.es/php_files/login.php";
+    public static String URL_LOGIN = "http://crickon.co.in/php/login.php";
 
 
     @Override
@@ -63,6 +68,7 @@ public class Login extends AppCompatActivity {
 
             SQLiteHandler repo=new SQLiteHandler(this);
             String role=repo.getRole();
+            Log.e("check",role);
 
             if (role.matches("Player"))
             {
@@ -74,7 +80,9 @@ public class Login extends AppCompatActivity {
             else if (role.matches("Captain"))
             {
                 // Launch main activity
-                Intent intent = new Intent(Login.this,CaptainDash.class);
+                Intent intent = new Intent(Login.this,TeamRequest.class);
+                String pincode=db.getPincode();
+                intent.putExtra("Pincode",pincode);
                 startActivity(intent);
                 finish();
             }
@@ -83,9 +91,41 @@ public class Login extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Login.this,Register.class);
-                startActivity(intent);
-                finish();
+
+                // custom dialog
+                final Dialog dialog = new Dialog(Login.this);
+                dialog.setContentView(R.layout.activity_register);
+                dialog.setTitle("Select Role");
+
+                // set the custom dialog components - text, image and button
+                Button btnPlayerRegister = (Button) dialog.findViewById(R.id.btnPlayerRegister);
+
+                Button btnCaptainRegister = (Button) dialog.findViewById(R.id.btnCaptainRegister);
+
+                btnPlayerRegister.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(Login.this,PlayerRegister.class);
+                        intent.putExtra("Role","Player");
+                        startActivity(intent);
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+
+                btnCaptainRegister.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(Login.this,PlayerRegister.class);
+                        intent.putExtra("Role","Captain");
+                        startActivity(intent);
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+
+
+                dialog.show();
             }
         });
 
@@ -114,6 +154,16 @@ public class Login extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void btnPlayer(View view)
+    {
+
+    }
+
+    public void btnCaptain(View view)
+    {
+
     }
 
     private void checkLogin(final String regid, final String password) {
@@ -150,6 +200,7 @@ public class Login extends AppCompatActivity {
                         //String desig = user.getString("desig");
                         String Role = user.getString("Role");
 
+                        db.deleteUsers();
                         // Inserting row in users table
                         db.addPlayer(PlayerId, Name, Phno, Teamid, pincode, Role);
 
@@ -163,7 +214,8 @@ public class Login extends AppCompatActivity {
                         else if (Role.matches("Captain"))
                         {
                             // Launch main activity
-                            Intent intent = new Intent(Login.this,CaptainDash.class);
+                            Intent intent = new Intent(Login.this,TeamRequest.class);
+                            intent.putExtra("Pincode",pincode);
                             startActivity(intent);
                             finish();
                         }

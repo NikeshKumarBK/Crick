@@ -18,13 +18,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Login"
-            android:theme="@style/AppTheme.Login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.Login" />
         <activity android:name=".Register" />
         <activity android:name=".PlayerRegister1" />
         <activity
@@ -34,7 +28,7 @@
         <activity
             android:name=".TeamRequest"
             android:label="Team Request"
-            android:theme="@style/AppTheme.Login" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PlayerRegister"
             android:label="@string/title_activity_player_register"
@@ -51,7 +45,70 @@
             android:name=".PlayerRequest"
             android:theme="@style/AppTheme.Login" />
         <activity android:name=".CheckRequest" />
-        <activity android:name=".MyProfile"></activity>
+        <activity android:name=".MyProfile" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".AboutUs"
+            android:label="@string/title_activity_about_us"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LiveMatches" />
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/AppTheme.Login" />
+        <activity android:name=".UpcomingMatchesDel" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SendMatchRequest" />
+        <activity
+            android:name=".MatchRequest"
+            android:label="Match Request" />
+        <activity android:name=".ReconsiderMatchRequest" />
+        <activity android:name=".MyTeams" />
+        <activity android:name=".TeamProfile" />
+        <activity
+            android:name=".ScoreCard"
+            android:label="Scoreboard" />
+        <activity
+            android:name=".TeamMatchRequest"
+            android:label="@string/title_activity_team_match_request" />
+        <activity android:name=".UpcomingMatch" />
+        <activity android:name=".ReconsiderRequest" />
+        <activity android:name=".TodayMatches" />
+        <activity
+            android:name=".MatchRequests"
+            android:label="Match Request"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".Matches"
+            android:label="Matches"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".Aboutuss"
+            android:label="Crickon"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".Profiles"
+            android:label="Profile"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".Feedback"
+            android:theme="@style/AppTheme.Login" />
+        <activity android:name=".Leaderboard"
+            android:theme="@style/AppTheme.Login" ></activity>
     </application>
 
 </manifest>

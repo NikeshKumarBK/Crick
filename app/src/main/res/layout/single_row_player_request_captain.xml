@@ -9,28 +9,30 @@
     android:layout_marginBottom="@dimen/activity_vertical_margin"
     android:layout_margin="8dp">
 
-    <TextView
-        android:id="@+id/playerId"
-        android:typeface="serif"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:paddingTop="6dip"
-        android:background="@color/primary_light"
-        android:paddingLeft="6dip"
-        android:textSize="20sp"
-        android:textColor="@color/primary_text"
-        android:text="1"/>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <TextView
+            android:id="@+id/playerId"
+            android:typeface="serif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:paddingTop="6dip"
+
+            android:paddingLeft="6dip"
+            android:textSize="20sp"
+            android:textColor="@color/primary_text"
+            />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary_light"
+
             android:orientation="horizontal">
 
             <ImageView
@@ -78,6 +80,21 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+
+
+            <TextView
+                android:id="@+id/playerId1"
+                android:typeface="serif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:paddingTop="6dip"
+                android:background="@color/primary_light"
+                android:paddingLeft="6dip"
+                android:textSize="20sp"
+                android:textColor="@color/primary_text"
+                />
+
             <Button
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -99,20 +116,7 @@
                 android:onClick="btnReject"
                 android:textAllCaps="false"
                 />
-
-
         </LinearLayout>
-
-
-
-
-
-
-
-
-        <!-- Name Label -->
-
-
 
         <Button
             android:layout_width="match_parent"

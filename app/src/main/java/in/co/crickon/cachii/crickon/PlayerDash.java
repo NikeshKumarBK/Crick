@@ -1,9 +1,11 @@
 package in.co.crickon.cachii.crickon;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,11 +16,36 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PlayerDash extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    TextView txtPlayerName, txtAge, txtbatsman;
+    TextView txtbowler, txtwicketkeeper, txtPhonenumber, txtpincode, txtTeamName,txtCapName,txtTeamWin,txtTeamLost;
 
-    Button btnSendRequest;
+
+    private static final String TAG = MyProfile.class.getSimpleName();
+
+    String playerId;
+    private ProgressDialog pDialog;
+    private SessionManager session;
+
+
+    // Server user login url
+    public static String URL_MYPROFILE = "http://crickon.co.in/php/PlayerProfile.php";
+
 
     private static final String TAG_PINCODE = "Pincode";
 
@@ -29,29 +56,28 @@ public class PlayerDash extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        btnSendRequest=(Button)findViewById(R.id.btnSendRequest);
 
-        btnSendRequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        txtPlayerName = (TextView) findViewById(R.id.txtPlayerName);
+        txtAge = (TextView) findViewById(R.id.txtAge);
+        txtbatsman = (TextView) findViewById(R.id.txtbatsman);
+        txtbowler = (TextView) findViewById(R.id.txtbowler);
+        txtwicketkeeper = (TextView) findViewById(R.id.txtwicketkeeper);
+        txtPhonenumber = (TextView) findViewById(R.id.txtPhonenumber);
+        txtpincode = (TextView) findViewById(R.id.pincode);
 
-                SQLiteHandler repo=new SQLiteHandler(PlayerDash.this);
-                String pincode=repo.getPincode();
-                Intent intent=new Intent(PlayerDash.this,PlayerRequest.class);
-                intent.putExtra(TAG_PINCODE, pincode);
-                startActivity(intent);
-                finish();
-            }
-        });
+        txtTeamName=(TextView)findViewById(R.id.txtProfileTeamName);
+        txtCapName=(TextView)findViewById(R.id.txtProfileCapName);
+        txtTeamWin=(TextView)findViewById(R.id.txtProfileWon);
+        txtTeamLost=(TextView)findViewById(R.id.txtProfileLost);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+        SQLiteHandler repo=new SQLiteHandler(PlayerDash.this);
+        playerId=repo.getPlayerID();
+
+        // Progress dialog
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
+
+        profile(playerId);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -61,8 +87,115 @@ public class PlayerDash extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header=navigationView.getHeaderView(0);
+/*View view=navigationView.inflateHeaderView(R.layout.nav_header_main);*/
+        TextView name = (TextView)header.findViewById(R.id.txtCapName);
+        TextView phno = (TextView)header.findViewById(R.id.txtcapPhno);
+
+        String capname=repo.getPlayerName();
+        String capPincode=repo.getPincode();
+        name.setText(capname);
+        phno.setText(capPincode);
     }
 
+    private void profile(final String playerId) {
+        // Tag used to cancel the request
+        String tag_string_req = "req_login";
+
+        pDialog.setMessage("Fetching details...");
+        showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                URL_MYPROFILE, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Login Response: " + response.toString());
+                hideDialog();
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    // Check for error node in json
+                    if (!error) {
+                        // user successfully logged in
+                        // Create login session
+
+
+                        JSONObject user = jObj.getJSONObject("user");
+                        String PlayerId=user.getString("PlayerId");
+                        String Name = user.getString("Name");
+                        String Age = user.getString("Age");
+                        String Phno = user.getString("Phno");
+                        String pincode = user.getString("Pincode");
+                        String batsman = user.getString("Batsman");
+                        String bowler = user.getString("Bowler");
+                        String wk = user.getString("WK");
+                        String teamname= user.getString("TeamName");
+                        String capname= user.getString("CaptainName");
+                        String teamwin= user.getString("Win");
+                        String teamlost= user.getString("Lost");
+
+
+                        txtPlayerName.setText(Name);
+                        txtAge.setText(Age);
+                        txtPhonenumber.setText(Phno);
+                        txtbatsman.setText(batsman);
+                        txtbowler.setText(bowler);
+                        txtwicketkeeper.setText(wk);
+                        txtpincode.setText(pincode);
+                        txtTeamName.setText(teamname);
+                        txtCapName.setText(capname);
+                        txtTeamWin.setText(teamwin);
+                        txtTeamLost.setText(teamlost);
+
+                        Log.e("check", PlayerId+""+Name+""+Phno+""+pincode+""+"");
+
+                    } else {
+                        // Error in login. Get the error message
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(),errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    //Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),"No Internet connection", Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("playerId", playerId);
+
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -73,27 +206,6 @@ public class PlayerDash extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.player_dash, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -111,8 +223,15 @@ public class PlayerDash extends AppCompatActivity
             finish();
             // Handle the camera action
         }  else if (id == R.id.nav_my_profile) {
-            
-            Intent intent=new Intent(PlayerDash.this,MyProfile.class);
+            Intent intent=new Intent(PlayerDash.this,Profiles.class);
+            startActivity(intent);
+            finish();
+        } else if (id == R.id.nav_upcoming_matches) {
+            Intent intent=new Intent(PlayerDash.this,UpcomingMatch.class);
+            startActivity(intent);
+            finish();
+        } else if (id == R.id.nav_about_us) {
+            Intent intent=new Intent(PlayerDash.this,Aboutuss.class);
             startActivity(intent);
             finish();
         } else if (id == R.id.nav_sign_out) {
@@ -124,7 +243,16 @@ public class PlayerDash extends AppCompatActivity
             Intent intent=new Intent(PlayerDash.this,Login.class);
             startActivity(intent);
             finish();
+        } else if (id == R.id.nav_feedback) {
+            Intent intent=new Intent(PlayerDash.this,Feedback.class);
+            startActivity(intent);
+            finish();
+        } else if (id == R.id.nav_leaderboard) {
+            Intent intent=new Intent(PlayerDash.this,Leaderboard.class);
+            startActivity(intent);
+            finish();
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

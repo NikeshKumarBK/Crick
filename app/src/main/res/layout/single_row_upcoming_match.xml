@@ -1,0 +1,101 @@
+<LinearLayout android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingLeft="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
+            android:id="@+id/teamName"
+
+            android:gravity="center"
+            android:textColor="@color/primary_text"
+            android:text="Team name"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nov"
+            android:gravity="center"
+            android:textColor="@color/primary_text"
+            android:id="@+id/txtMonth"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="26"
+            android:textColor="@color/primary_text"
+            android:id="@+id/txtDate"
+            android:gravity="center"
+            android:textSize="34sp"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/txtLocation"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/secondary_text"
+                android:gravity="right"
+                android:text="Location"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="06:00"
+                android:id="@+id/txtTime"
+                android:textColor="@color/secondary_text"
+                android:paddingLeft="5dp"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
+            android:id="@+id/OppTeamName"
+            android:gravity="center"
+            android:textColor="@color/primary_text"
+            android:text="Opponent name"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -98,6 +98,17 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Log.d(TAG, "New user inserted into sqlite: " + tid);
     }
 
+    public String getPlayerName(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + KEY_NAME + " FROM " + TABLE_USER + " WHERE " +
+                KEY_ID + "=1";
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+        String i = c.getString(0);
+
+        return i;
+    }
+
 
     public String getRole(){
         SQLiteDatabase db = this.getReadableDatabase();

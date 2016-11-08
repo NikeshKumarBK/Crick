@@ -4,12 +4,10 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -39,24 +37,20 @@ public class CheckRequest extends ListActivity {
 
     //ArrayList<HashMap<String, String>> WarningproductsList;
     // url to get all products list
-    private static String url_all_player_request = "http://crickon.esy.es/php_files/CheckRequest.php";
+    private static String url_all_player_request = "http://crickon.co.in/php/CheckRequest.php";
 
     // url to create new product
-    private static String url_update_player_request = "http://crickon.esy.es/php_files/UpdateRequest.php";
+    private static String url_update_player_request = "http://crickon.co.in/php/UpdateRequest.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PHONENUMBER = "Phno";
+    private static final String TAG_PINCODE = "Pincode";
     private static final String TAG_PLAYERID = "PlayerId";
     private static final String TAG_REQUEST = "request";
     private static final String TAG_PLAYERNAME = "PlayerName";
     private static final String TAG_CAPTAINID = "CaptainId";
     private static final String TAG_TEAMID = "TeamId";
     private static final String TAG_STATUS= "Status";
-
-    private static final String TAG_BATSMAN= "Batsman";
-    private static final String TAG_BOWLER= "Bowler";
-    private static final String TAG_WK = "WK";
 
     // products JSONArray
     JSONArray players = null;
@@ -112,12 +106,17 @@ public class CheckRequest extends ListActivity {
 
         playerId=childplayerid.getText().toString();
         status=""+1;
+        Log.e("playerId",playerId);
 
         vwParentRow.refreshDrawableState();
 
         new RequestResponse().execute();
 
-        Toast.makeText(CheckRequest.this,"Request updated",Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(CheckRequest.this,CheckRequest.class);
+        intent.putExtra(TAG_CAPTAINID, captainId);
+
+        startActivity(intent);
+        finish();
     }
 
     public void btnReject(View v)
@@ -152,10 +151,18 @@ public class CheckRequest extends ListActivity {
     public void btnProfile(View v)
     {
 
+        //get the row the clicked button is in
+        LinearLayout vwParentRow = (LinearLayout)v.getParent();
+
+        TextView childplayerid = (TextView)vwParentRow.getChildAt(0);
+
+
+        playerId=childplayerid.getText().toString();
+        //status=""+1;
+        vwParentRow.refreshDrawableState();
 
         Intent intent=new Intent(CheckRequest.this,MyProfile.class);
-        intent.putExtra(TAG_CAPTAINID, captainId);
-
+        intent.putExtra(TAG_PLAYERID, playerId);
         startActivity(intent);
         //finish();
     }
@@ -186,7 +193,7 @@ public class CheckRequest extends ListActivity {
             params.add(new BasicNameValuePair(TAG_PLAYERID, playerId));
             params.add(new BasicNameValuePair(TAG_TEAMID, teamid));
             params.add(new BasicNameValuePair(TAG_STATUS, status));
-            Log.e("Check",playerId+" "+teamid+" "+status);
+            Log.e("req_res",playerId+" "+teamid+" "+status);
 
             // sending modified data through http request
             // Notice that update product url accepts POST method
@@ -268,18 +275,19 @@ public class CheckRequest extends ListActivity {
                         // Storing each json item in variable
                         String playerId = c.getString(TAG_PLAYERID);
                         String playerName = c.getString(TAG_PLAYERNAME);
+                        String pincode=c.getString(TAG_PINCODE);
 
-                        String bat = c.getString(TAG_BATSMAN);
-                        String bowl = c.getString(TAG_BOWLER);
-                        String wk = c.getString(TAG_WK);
+//                        String bat = c.getString(TAG_BATSMAN);
+//                        String bowl = c.getString(TAG_BOWLER);
+//                        String wk = c.getString(TAG_WK);
 
                         HashMap<String, String> map = new HashMap<String, String>();
 
                         map.put(TAG_PLAYERID, playerId);
                         map.put(TAG_PLAYERNAME, playerName);
-                        map.put(TAG_BATSMAN, bat);
-                        map.put(TAG_BOWLER, bowl);
-                        map.put(TAG_WK, wk);
+                        map.put(TAG_PINCODE, pincode);
+                        //map.put(TAG_BOWLER, bowl);
+                        //map.put(TAG_WK, wk);
                         //map.put(TAG_CAPTAINID, captainid);
 
                         // adding HashList to ArrayList
@@ -308,7 +316,6 @@ public class CheckRequest extends ListActivity {
             }
             pDialog.dismiss();
 
-
             // updating UI from Background Thread
             runOnUiThread(new Runnable() {
                 public void run() {
@@ -320,10 +327,9 @@ public class CheckRequest extends ListActivity {
                                 new int[] { R.id.pid, R.id.allPlaceName, R.id.allLandMark,R.id.allProb,R.id.allAltRoute ,R.id.allSolved});*/
                     ListAdapter adapter1 = new SimpleAdapter(
                             CheckRequest.this, playerRequest,
-                            R.layout.single_row_player_request_captain, new String[] { TAG_PLAYERID,
-                            TAG_PLAYERNAME, TAG_BATSMAN, TAG_BOWLER, TAG_WK},
-                            new int[] { R.id.playerId, R.id.playerName, R.id.txtBat, R.id.txtBowl, R.id.txtWk});
-                    // updating listview
+                            R.layout.single_row_player_request_captain, new String[] { TAG_PLAYERID,TAG_PLAYERID,
+                            TAG_PLAYERNAME,TAG_PINCODE},
+                            new int[] { R.id.playerId, R.id.playerId1,R.id.playerName,R.id.pincode});                    // updating listview
                     setListAdapter(adapter1);
                     //setListAdapter(adapter);
                 }
